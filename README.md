@@ -15,9 +15,11 @@ A diagram on how all that hardware will play with software is illustrated below.
 - [ ] define schema for mongoDB
 ## Build Express server to serve static content
 - [ ] create HTML markup for client interface of app
+
   I will use React to help with the UI.
-  Will not use a JS template engine, but instead just a pure html file.
-  Intend to use Sass, but will look into [[https://postcss.org/][PostCSS]] for maintaining the app's style.
+  No intention to use a JS template engine, but instead will just use a pure html file.
+
+  Intend to use Sass, but will look into PostCSS[PostCSS](https://postcss.org/) for maintaining the app's style.
 - [ ] setup express to serve app  
   - [ ] setup webpack to work with Sass and Babel
   - [ ] setup source map in webpack for easier jsx debugging

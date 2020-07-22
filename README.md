@@ -18,8 +18,7 @@ A diagram on how all that hardware will play with software is illustrated below.
 
   I will use React to help with the UI.
   No intention to use a JS template engine, but instead will just use a pure html file.
-
-  Intend to use Sass, but will look into PostCSS[PostCSS](https://postcss.org/) for maintaining the app's style.
+  Will use Sass, but will look into [PostCSS](https://postcss.org/) for maintaining the app's style.
 - [ ] setup express to serve app  
   - [ ] setup webpack to work with Sass and Babel
   - [ ] setup source map in webpack for easier jsx debugging

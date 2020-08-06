@@ -8,7 +8,8 @@ function Fotos(props) {
     <td>1 min</td>
     <td>ICONS</td>
     <td>ON/OFF</td>
-  </tr>);
+  </tr>
+  );
 }
 
 export default Fotos;

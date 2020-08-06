@@ -12,9 +12,9 @@ show at my home on a Smarti Touch.  Below is the list of hardware I'm using to c
 A diagram on how all that hardware will play with software is illustrated below.  I've put the time to illustrate my strategy before I write any code.
 ![app diagram and schema](diagram.png)
 ## TODO build express server
-- [ ] setup express to serve app  
-  - [ ] create project with npm
-    - [ ] configure package-json
+- [-] setup express to serve app  
+  - [-] create project with npm
+    - [X] configure package-json
 
       Understand [semantic versioning](https://docs.npmjs.com/about-semantic-versioning).  The link has a good video that describes npm's semantic versioning.
 
@@ -26,14 +26,17 @@ A diagram on how all that hardware will play with software is illustrated below.
       - babel-preset-es2020
       - nodemon
       - webpack
+      - sass-loader, sass, style-loader, and css-loader to better style react components
 
       Installed node dependency packages for project:
       - cors
-      - express
-      - react
+      - [X] express
+        setup in node.js
+      - [X] react
       - react-dom      
-  - [ ] setup webpack to work with Sass and Babel
-  - [ ] setup source map in webpack for easier jsx debugging
+    - [X] setup webpack to work with Sass and Babel
+    - [ ] setup source map in webpack for easier jsx debugging
+    - [ ] setup Hot Module Replacement
 ## TODO Build the app client interface
 - [ ] create HTML markup for client interface of app
 

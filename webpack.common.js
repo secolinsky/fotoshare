@@ -5,15 +5,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: { main: './src/assets/js/main.js',
-           app: './src/components/app.jsx' },
+           app: './src/components/app.jsx'},
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js'
   },
 
   plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({ title: 'fotoshare', inject: false, cache: false, template: 'src/index.html' })
+    new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
+    new HtmlWebpackPlugin({ title: 'fotoshare', inject: false, template: 'src/index.html' })
     
 
   ]

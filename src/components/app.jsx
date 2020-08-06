@@ -12,7 +12,7 @@ class App extends React.Component {
   render(){
     return (
       <div>
-      <h4>Active Fotos</h4>
+      <h5>Active Fotos</h5>
       <table>
         <thead>
           <tr>
@@ -25,9 +25,10 @@ class App extends React.Component {
           <th scope = "col">
             End
           </th>
-          <th scope = "col" colSpan ="3">
+          <th scope = "col">
             Duration
           </th>
+          <th scope = "col" colSpan = "2"></th>
           </tr>
         </thead>
         <tbody>
@@ -41,3 +42,10 @@ class App extends React.Component {
 
 let section = document.querySelector("section");
 ReactDOM.render(<App />, section);
+
+
+
+if (module.hot) {
+  module.hot.accept();
+}
+

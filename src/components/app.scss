@@ -4,5 +4,10 @@ $flh1: #b7ee55;                 /*rgb(183, 238, 85) */ /*I like*/
 $flh2: #ee5b77;                  /*missing a digit!*/
 
 thead {
-    color: $flh2;                              
+    color: $flh2;
+    background-color: $flh1;
+}
+
+tbody tr:nth-child(odd) {
+    background: $flhOpposite;
 }

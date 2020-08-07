@@ -9,10 +9,10 @@ module.exports = merge(common, {
     contentBase: path.join(__dirname, 'dist')
   },
   module: {
-    rules: [
-      {
+    rules: [      
+      {        
         test: /\.scss$/,
-        include: path.resolve(__dirname, "src/components"),
+        include: [ path.resolve(__dirname, "src/components"), path.resolve(__dirname, "scss")],
         use: [
           { loader: "style-loader" },
           { loader: "css-loader" },

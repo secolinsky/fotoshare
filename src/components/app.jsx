@@ -11,7 +11,7 @@ class App extends React.Component {
 
   render(){
     return (
-      <div>
+      <div className = "activeInactive">
       <h5>Active Fotos</h5>
       <table>
         <thead>

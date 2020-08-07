@@ -3,11 +3,78 @@ $flhOpposite: #55b5ee;          /*rgb(85, 181, 238)*/
 $flh1: #b7ee55;                 /*rgb(183, 238, 85) */ /*I like*/
 $flh2: #ee5b77;                  /*missing a digit!*/
 
+$font: "'Bree Serif', serif";
+
+table {
+    /* MDN introduced an explanation for why to use 
+       table-layout at https://css-tricks.com/fixing-tables-long-strings/  
+   */
+    table-layout: fixed;
+    width: 80%;
+    border: 3px solid $flhOpposite;
+    border-collapse: collapse;
+    font: $font;
+}
+
+.activeInactive {
+    margin-left: 15px;
+}
+
 thead {
     color: $flh2;
     background-color: $flh1;
 }
 
-tbody tr:nth-child(odd) {
-    background: $flhOpposite;
+thead th:nth-child(1){
+    width: 25%;
 }
+thead th:nth-child(2){
+    width: 15%;
+}
+thead th:nth-child(3){
+    width: 15%;
+}
+thead th:nth-child(4){
+    width: 15%;
+}
+
+thead th:nth-child(5){
+    width: 15%;
+}
+thead th:nth-child(6){
+    width: 15%;
+}
+
+tbody tr:nth-child(odd) {
+    background: #f0f0f2;
+}
+
+th, td {
+    border-bottom: 3px solid $flhOpposite;
+    border-right: 3px solid $flhOpposite;    
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.name {
+    text-align: left;
+}
+
+.start, .end, .duration {
+    text-align: center;
+}
+
+
+
+th:first-child {
+    text-align: left;
+}
+
+tr:last-child td {
+    border-bottom: 0;
+}
+
+td {
+    font-size: .65em;
+}
+

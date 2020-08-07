@@ -5,7 +5,13 @@ const common = require('./webpack.common.js');
 module.exports = merge(common, {
   mode: 'development',
   devtool: "inline-source-map",
-  entry: ['webpack-hot-middleware/client'],
+  entry: { main: './src/assets/js/main.js',
+           app: ['./src/components/app.jsx', 'webpack-hot-middleware/client']},
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].js',
+    publicPath: '/'
+  },  
   devServer: {
     contentBase: path.join(__dirname, 'dist')
   },

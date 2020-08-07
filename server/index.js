@@ -5,7 +5,7 @@ var path = require('path')
 // add webpack-dev-middleware
 var webpack = require('webpack');
 var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackConfig = require('./webpack.dev.config');
+var webpackConfig = require('./../webpack.dev.js');
 var compiler = webpack(webpackConfig);
 
 app.use(require("webpack-dev-middleware")(compiler, {

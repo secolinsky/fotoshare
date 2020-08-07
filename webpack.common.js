@@ -13,8 +13,9 @@ module.exports = {
 
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
-    new HtmlWebpackPlugin({ title: 'fotoshare', inject: false, template: 'src/index.html' })
-    
+    new HtmlWebpackPlugin({ title: 'fotoshare', inject: false, template: 'src/index.html' }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin()
 
   ]
 };

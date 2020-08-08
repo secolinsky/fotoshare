@@ -12,8 +12,12 @@ table {
     table-layout: fixed;
     width: 80%;
     border: 3px solid $flhOpposite;
-    border-collapse: collapse;
     font: $font;
+    margin-bottom: 44px;
+}
+
+table:last-child {
+    margin-bottom: 0;
 }
 
 .activeInactive {
@@ -51,7 +55,6 @@ tbody tr:nth-child(odd) {
 
 th, td {
     border-bottom: 3px solid $flhOpposite;
-    border-right: 3px solid $flhOpposite;    
     padding: 5px;
     vertical-align: middle;
 }

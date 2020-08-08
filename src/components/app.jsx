@@ -12,7 +12,31 @@ class App extends React.Component {
   render(){
     return (
       <div className = "activeInactive">
-      <h5>Active Fotos</h5>
+        <h5>Active Fotos</h5>
+        <table>
+          <thead>
+          <tr>
+          <th scope = "col">
+            Name
+          </th>
+          <th scope = "col">
+            Start
+          </th>
+          <th scope = "col">
+            End
+          </th>
+          <th scope = "col">
+            Duration
+          </th>
+          <th scope = "col" colSpan = "2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <Fotos />
+        </tbody>
+      </table>
+
+      <h5>Inactive Fotos</h5>
       <table>
         <thead>
           <tr>
@@ -34,7 +58,7 @@ class App extends React.Component {
         <tbody>
           <Fotos />
         </tbody>
-      </table>
+      </table>      
       </div>
     );
   }

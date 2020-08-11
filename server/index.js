@@ -16,9 +16,4 @@ app.use(require("webpack-dev-middleware")(compiler, {
 app.listen( 8080, () => console.log("server started on port 8080") );
 
 app.use(require("webpack-hot-middleware")(compiler));
-// serve static files
-// app.use('/static', express.static(path.resolve(__dirname, "../dist")));
 
-//app.get('/', function (req, res) {
-//  res.sendFile(path.resolve(__dirname, "../dist", "index.html"));
-//})

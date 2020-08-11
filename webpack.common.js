@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = {
-  entry: { main: './src/assets/js/main.js',
+  entry: { main: './scss/main.scss',
            app: './src/components/app.jsx'},
   output: {
     path: path.resolve(__dirname, 'dist'),

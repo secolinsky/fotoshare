@@ -17,7 +17,7 @@ function fileNameAndExt(str) {
   return [ file.substr(0, last), file.substr(last + 1, file.length) ];
 }
 
-function fileName(imagePath) {
+function newFileName(imagePath) {
   let [name, ext] = fileNameAndExt(imagePath);
   let reDate = /^(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/u;
   let match = name.match(reDate);
@@ -43,11 +43,17 @@ let p1 = 'pidrive1/20161101_180213.jpg';
 async function getP(photo) {
   let exists = await client.fileExists(photo);
   if (exists) {
-    // make output file name explicit 
-    let output = await client.getFile(photo, path.join(process.cwd(), fileName(photo)));
+    // getFile returns a promise
+    try {
+      let output = await client.getFile(photo, path.join(__dirname, newFileName(photo)));
+      console.log(`got test file from samba share at ${client.address}`)
+    } catch(err) {
+      console.error(err)
+    }
   } else {
     console.log('photo ' + photo + ' does not exist');
   }
 }
 
-getP(p1).then(console.log('created')).catch(console.error);
+getP(p1);
+// getP(p1).then(console.log('created')).catch(console.error);

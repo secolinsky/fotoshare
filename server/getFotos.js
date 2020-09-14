@@ -2,6 +2,8 @@ const SambaClient = require("samba-client");
 const path = require("path");
 const credentials = require("./credentials.js");
 
+const fs = require("fs");
+
 let client = new SambaClient({
   address: credentials.address,
   username: credentials.username,
@@ -20,6 +22,8 @@ function fileNameAndExt(str) {
 function newFileName(imagePath) {
   let [name, ext] = fileNameAndExt(imagePath);
   let reDate = /^(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/u;
+
+  // do a try/catch block in case re match fails
   let match = name.match(reDate);
   let year, month, day, time, fn;
   if (match !== null) {
@@ -37,15 +41,29 @@ function newFileName(imagePath) {
   }
 }
 
+// below is the first test file
+// let p1 = 'pidrive1/20161101_180213.jpg';
 
-let p1 = 'pidrive1/20161101_180213.jpg';
 
+// list files from samba directory
+async function lf(dir) {
+  try{
+    let r = await client.listMyFiles(dir, '.jpg');
+    console.log(`found these files \n${r.join('')}`);
+    }
+  catch(err) {
+    console.error(err);
+  }
+}
+
+// getP writes to local hard drive a newly named copy from NAS pidrive
 async function getP(photo) {
+  
   let exists = await client.fileExists(photo);
   if (exists) {
     // getFile returns a promise
     try {
-      let output = await client.getFile(photo, path.join(__dirname, newFileName(photo)));
+      let output = await client.getFile(photo, path.join(__dirname, 'photos', newFileName(photo)));
       console.log(`got test file from samba share at ${client.address}`)
     } catch(err) {
       console.error(err)
@@ -55,5 +73,9 @@ async function getP(photo) {
   }
 }
 
-getP(p1);
-// getP(p1).then(console.log('created')).catch(console.error);
+// getP(p1);
+
+// now to get files from the 'pidrive1/photos/photos/' directory
+// to later feed to get
+
+lf('pidrive1/photos/photos/')

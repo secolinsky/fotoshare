@@ -2,6 +2,12 @@ const SambaClient = require("samba-client");
 const path = require("path");
 const credentials = require("./credentials.js");
 
+// Access the stream API
+// Use fs.promises.opendir
+// opendir returns a Dir object representing the specified directory
+// Use the read() method of Dir object to read one Dirent class at a time.
+// https://nodejs.org/api/fs.html#fs_class_fs_dirent on fs.Dirent class
+// https://nodejs.org/api/fs.html#fs_class_fs_dir on fs.Dire class
 const fs = require("fs");
 
 let client = new SambaClient({
@@ -10,15 +16,16 @@ let client = new SambaClient({
   password: credentials.password,
   domain: "WORKGROUP"
 });
-// two photos: 20161101_180213.jpg and 20161212_203754.jpg
 
-
+// return an array with the name of file, and its extension
+// extracted from the path of photo asset as string
 function fileNameAndExt(str) {
   let file = path.basename(str);
   let last = file.lastIndexOf('.');
   return [ file.substr(0, last), file.substr(last + 1, file.length) ];
 }
 
+// return new name of file to be displayed on React app
 function newFileName(imagePath) {
   let [name, ext] = fileNameAndExt(imagePath);
   let reDate = /^(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/u;
@@ -41,12 +48,14 @@ function newFileName(imagePath) {
   }
 }
 
-// below is the first test file
-// let p1 = 'pidrive1/20161101_180213.jpg';
+// Two photos: 20161101_180213.jpg and 20161212_203754.jpg
+// placed in the public share.
+// Below is a test file.
+// Let p1 = 'pidrive1/20161101_180213.jpg';
 
 
 // list files from samba directory
-async function lf(dir) {
+async function listFiles(dir) {
   try{
     let r = await client.listMyFiles(dir, '.jpg');
     console.log(`found these files \n${r.join('')}`);
@@ -78,4 +87,4 @@ async function getP(photo) {
 // now to get files from the 'pidrive1/photos/photos/' directory
 // to later feed to get
 
-lf('pidrive1/photos/photos/')
+listFiles('pidrive1/photos/photos/')

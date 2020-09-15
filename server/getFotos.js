@@ -25,10 +25,13 @@ function fileNameAndExt(str) {
   return [ file.substr(0, last), file.substr(last + 1, file.length) ];
 }
 
+// <reDate> used in both newFileName and listFiles
+let reDate = /^(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/u;      
+
+
 // return new name of file to be displayed on React app
 function newFileName(imagePath) {
   let [name, ext] = fileNameAndExt(imagePath);
-  let reDate = /^(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/u;
 
   // do a try/catch block in case re match fails
   let match = name.match(reDate);
@@ -54,10 +57,12 @@ function newFileName(imagePath) {
 // Let p1 = 'pidrive1/20161101_180213.jpg';
 
 
-// list files from samba directory
-async function listFiles(dir) {
+// list files from samba directory <dir>
+// that match a regular expression <regEx> and that
+// have <fileExt> as their file extension.
+async function listFiles(dir,regEx,fileExt) {
   try{
-    let r = await client.listMyFiles(dir, '.jpg');
+    let r = await client.listMyFiles(dir, regEx, '.jpg');
     console.log(`found these files \n${r.join('')}`);
     }
   catch(err) {
@@ -87,4 +92,4 @@ async function getP(photo) {
 // now to get files from the 'pidrive1/photos/photos/' directory
 // to later feed to get
 
-listFiles('pidrive1/photos/photos/')
+listFiles('pidrive1/photos/photos/', reDate, '.jpg')

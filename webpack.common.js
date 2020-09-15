@@ -4,7 +4,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: { main: './src/assets/js/main.js',
+  entry: { main: './scss/main.scss',
            app: './src/components/app.jsx'},
   output: {
     path: path.resolve(__dirname, 'dist'),

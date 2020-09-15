@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title><%= htmlWebpackPlugin.options.title %></title>
-    <link rel="stylesheet" href="static/main.css" type="text/css" media="screen" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"></head>
+    <link rel="stylesheet" href="main.css" type="text/css" media="screen" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"></head>
   <body>
     <header>
       <h3>
@@ -12,12 +12,12 @@
       </h3>
     </header>
 
-    <section>
-
+    <section class = "row">
+      
     </section>
 
     <% for(var i=0; i < htmlWebpackPlugin.files.js.length; i++) {%>
-       <script type="text/javascript" src="static/<%= htmlWebpackPlugin.files.js[i] %>"></script>
-    <% } %>
+       <script type="text/javascript" src="<%= htmlWebpackPlugin.files.js[i] %>"></script>
+       <% } %>
   </body>
 </html>

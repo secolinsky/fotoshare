@@ -51,45 +51,46 @@ function newFileName(imagePath) {
   }
 }
 
-// Two photos: 20161101_180213.jpg and 20161212_203754.jpg
-// placed in the public share.
-// Below is a test file.
-// Let p1 = 'pidrive1/20161101_180213.jpg';
-
-
 // list files from samba directory <dir>
 // that match a regular expression <regEx> and that
 // have <fileExt> as their file extension.
+
+// take getP and use async/ for await with Node > 12
 async function listFiles(dir,regEx,fileExt) {
-  try{
-    let r = await client.listMyFiles(dir, regEx, '.jpg');
-    console.log(`found these files \n${r.join('')}`);
-    }
-  catch(err) {
-    console.error(err);
-  }
+  let r = await client.listMyFiles(dir, regEx, '.jpg');    
+  return r;
 }
 
 // getP writes to local hard drive a newly named copy from NAS pidrive
 async function getP(photo) {
-  
-  let exists = await client.fileExists(photo);
+  let myPhoto = path.join(credentials.rootNASPath, photo)
+  let exists = await client.fileExists(myPhoto);
   if (exists) {
-    // getFile returns a promise
     try {
-      let output = await client.getFile(photo, path.join(__dirname, 'photos', newFileName(photo)));
-      console.log(`got test file from samba share at ${client.address}`)
+      // getFile returns a promise
+      let output = await client.getFile(myPhoto, path.join(__dirname, 'photos', newFileName(photo)));
+      return output;
+      /* console.log(`got test file from samba share at ${client.address}`) */
     } catch(err) {
-      console.error(err)
+      return Promise.reject( new Error("fucked error") )
     }
   } else {
-    console.log('photo ' + photo + ' does not exist');
+    return Promise.reject( new Error("photo"+ photo + "doesn't exist") );
+    /* console.log('photo ' + photo + ' does not exist'); */
   }
 }
 
-// getP(p1);
+/* function getAllPhotos(l) {
+ *   for(let photo of l) {
+ *     getP(photo)
+ *   }
+ * } */
+// an array of photo names without the hierarchy of directories
+let myList = listFiles(credentials.rootNASPath + '/', reDate, '.jpg').then(result => console.log(result));
+/* then(result =>
+ *   result.map( item => getP(item) )
+ * ).catch( err => console.log(err)); */
 
-// now to get files from the 'pidrive1/photos/photos/' directory
-// to later feed to get
 
-listFiles('pidrive1/photos/photos/', reDate, '.jpg')
+/* console.log(myList) */
+/* getAllPhotos(myList) */

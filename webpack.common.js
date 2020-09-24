@@ -17,6 +17,5 @@ module.exports = {
     new HtmlWebpackPlugin({ title: 'fotoshare', inject: false, template: 'src/index.html' }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
-
   ]
 };

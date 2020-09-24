@@ -1,1 +1,2 @@
 webpack.prod.js
+server/credentials.js

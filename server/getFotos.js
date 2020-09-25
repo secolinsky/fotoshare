@@ -51,6 +51,16 @@ function newFileName(imagePath) {
   }
 }
 
+// getP writes to local hard drive a newly named copy from NAS pidrive
+// then returns a promise of the command to write
+// error handling must be handled by caller
+async function writeP(photo) {
+  let myPhoto = path.join(credentials.rootNASPath, photo)
+  let output = await client.getFile(myPhoto, path.join(__dirname, 'photos', newFileName(photo)));
+
+  return output;
+}
+
 // list files from samba directory <dir>
 // that match a regular expression <regEx> and that
 // have <fileExt> as their file extension.
@@ -61,36 +71,13 @@ async function listFiles(dir,regEx,fileExt) {
   return r;
 }
 
-// getP writes to local hard drive a newly named copy from NAS pidrive
-async function getP(photo) {
-  let myPhoto = path.join(credentials.rootNASPath, photo)
-  let exists = await client.fileExists(myPhoto);
-  if (exists) {
-    try {
-      // getFile returns a promise
-      let output = await client.getFile(myPhoto, path.join(__dirname, 'photos', newFileName(photo)));
-      return output;
-      /* console.log(`got test file from samba share at ${client.address}`) */
-    } catch(err) {
-      return Promise.reject( new Error("fucked error") )
-    }
-  } else {
-    return Promise.reject( new Error("photo"+ photo + "doesn't exist") );
-    /* console.log('photo ' + photo + ' does not exist'); */
-  }
+
+async function writeAllPhotos() {
+  // an array of photo names without the hierarchy of directories
+  let myList = await listFiles(credentials.rootNASPath + '/', reDate, '.jpg');
+  let promises = await myList.map(photo => writeP(photo));
+  return Promise.all(promises);
 }
 
-/* function getAllPhotos(l) {
- *   for(let photo of l) {
- *     getP(photo)
- *   }
- * } */
-// an array of photo names without the hierarchy of directories
-let myList = listFiles(credentials.rootNASPath + '/', reDate, '.jpg').then(result => console.log(result));
-/* then(result =>
- *   result.map( item => getP(item) )
- * ).catch( err => console.log(err)); */
+writeAllPhotos().then( () => console.log("Command succeeded!") ).catch( e => console.log("Command Failed") );
 
-
-/* console.log(myList) */
-/* getAllPhotos(myList) */

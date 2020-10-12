@@ -37,6 +37,8 @@
     "express": "^4.17.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "samba-client": "^3.2.0"
+    "samba-client": "^3.2.0",
+    "sharp": "^0.26.1",
+    "tern": "^0.24.3"
   }
 }

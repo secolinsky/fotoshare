@@ -26,15 +26,15 @@ function fileNameAndExt(str) {
 }
 
 // <reDate> used in both newFileName and listFiles
-let reDate = /^(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/u;      
+const reDate = /^(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/u;      
 
 
 // return new name of file to be displayed on React app
-function newFileName(imagePath) {
+function newFileName(imagePath, re) {
   let [name, ext] = fileNameAndExt(imagePath);
 
   // do a try/catch block in case re match fails
-  let match = name.match(reDate);
+  let match = name.match(re);
   let year, month, day, time, fn;
   if (match !== null) {
     year = match[1];
@@ -51,12 +51,12 @@ function newFileName(imagePath) {
   }
 }
 
-// getP writes to local hard drive a newly named copy from NAS pidrive
-// then returns a promise of the command to write
+// writeP writes to local hard drive a newly named copy from NAS pidrive
+// then returns a promise of the command to write.
 // error handling must be handled by caller
 async function writeP(photo) {
   let myPhoto = path.join(credentials.rootNASPath, photo)
-  let output = await client.getFile(myPhoto, path.join(__dirname, 'photos', newFileName(photo)));
+  let output = await client.getFile(myPhoto, path.join(__dirname, 'photos', newFileName(photo, reDate)));
 
   return output;
 }
@@ -65,19 +65,23 @@ async function writeP(photo) {
 // that match a regular expression <regEx> and that
 // have <fileExt> as their file extension.
 
-// take getP and use async/ for await with Node > 12
+// take writeP and use async/ for await with Node > 12
 async function listFiles(dir,regEx,fileExt) {
   let r = await client.listMyFiles(dir, regEx, '.jpg');    
   return r;
 }
 
+const wait = ms => new Promise( (resolve, reject) => setTimeout(resolve, ms) );
 
 async function writeAllPhotos() {
   // an array of photo names without the hierarchy of directories
   let myList = await listFiles(credentials.rootNASPath + '/', reDate, '.jpg');
-  let promises = await myList.map(photo => writeP(photo));
+  // on failure, wait and retry
+  let promises = await myList.map(photo => writeP(photo).catch( e => wait(9000).then(writeP(photo)) ));
   return Promise.all(promises);
 }
 
-writeAllPhotos().then( () => console.log("Command succeeded!") ).catch( e => console.log("Command Failed") );
+// All photos from Samba remote share written to local machine when Promise fulfills
+// writeAllPhotos().then( () => console.log("Command succeeded!") ).catch( e => console.log("Command Failed \n" + e) );
 
+module.exports = { writeP, fileNameAndExt, wait };

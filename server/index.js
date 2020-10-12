@@ -12,8 +12,7 @@ app.use(require("webpack-dev-middleware")(compiler, {
   noInfo: true, publicPath: webpackConfig.output.publicPath
 }));
 
-// assign port 8080
-app.listen( 8080, () => console.log("server started on port 8080") );
-
 app.use(require("webpack-hot-middleware")(compiler));
 
+// assign port 8080
+app.listen( 8080, () => console.log("server started on port 8080") );

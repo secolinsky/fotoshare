@@ -53,3 +53,5 @@ const getTotalSize = function(directoryPath) {
 const result = getTotalSize(process.argv[2])
 // 159.9 KB
 console.log(result)
+
+module.exports = { convertBytes };
